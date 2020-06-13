@@ -28,7 +28,7 @@ export class StringUtil {
     return str
   }
 
-  static _i(str: string): number {
+  static _num(str: string): number {
     if (!StringUtil.isNum(str)) {
       throw new TypeError(`StringUtil: Unable to parse '${str}' to number`)
     }

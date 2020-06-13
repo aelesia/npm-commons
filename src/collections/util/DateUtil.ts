@@ -13,7 +13,7 @@ export class DateUtil {
       return this.fromTimestamp(date)
     } else if (typeof date === 'string') {
       // FIXME: Dates could be ISO strings too
-      return this.fromTimestamp(StringUtil._i(date))
+      return this.fromTimestamp(StringUtil._num(date))
     } else if (typeof date === 'undefined') {
       return new Date()
     }
