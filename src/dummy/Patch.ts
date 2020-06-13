@@ -1,3 +1,6 @@
+/**
+ * @experimental
+ */
 export class Patch<T> {
   singleton: T
   mock: T
