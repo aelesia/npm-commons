@@ -41,28 +41,6 @@ export class DateUtil {
     return Math.trunc(date.getTime() / 1000)
   }
 
-  /**
-   * Returns the number of milliseconds to go from date1 until date2
-   */
-  static until(date: Date): number {
-    let now = this.now().getTime()
-    return date.getTime() - now
-  }
-
-  /**
-   * The number of milliseconds that has elapsed from date1 since date2
-   */
-  static since(date: Date): number {
-    return -this.until(date)
-  }
-
-  /**
-   * Returns the number of milliseconds from date2 to date1
-   */
-  static elapsed(date: Date, date2: Date): number {
-    return date2.getTime() - date.getTime()
-  }
-
   static add(ms: number, date: Date = new Date()): Date {
     return new Date(date.getTime() + ms)
   }

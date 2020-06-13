@@ -1,5 +1,6 @@
 import { DateUtil } from '../../src/collections/util/DateUtil'
 import { _ } from '../../index'
+import {TimeUtil} from "../../src/collections/util/TimeUtil";
 
 describe('DateUtil', () => {
   test('to_date', async () => {
@@ -32,29 +33,11 @@ describe('DateUtil', () => {
     let today = DateUtil.now()
     let tomorrow = DateUtil.add(_.time.days(1), today)
     let yesterday = DateUtil.minus(_.time.days(1), today)
-    expect(DateUtil.elapsed(yesterday, tomorrow)).toEqual(_.time.days(2))
-    expect(DateUtil.elapsed(today, tomorrow)).toEqual(_.time.days(1))
-    expect(DateUtil.elapsed(today, today)).toEqual(0)
-    expect(DateUtil.elapsed(tomorrow, today)).toEqual(_.time.days(-1))
-    expect(DateUtil.elapsed(tomorrow, yesterday)).toEqual(_.time.days(-2))
-  })
-
-  test('until', async () => {
-    let today = DateUtil.now()
-    let tomorrow = DateUtil.add(_.time.days(1), today)
-    let yesterday = DateUtil.minus(_.time.days(1), today)
-    expect(DateUtil.until(tomorrow)).toBeCloseTo(_.time.days(1), -1)
-    expect(DateUtil.until(today)).toBeCloseTo(0, -1)
-    expect(DateUtil.until(yesterday)).toBeCloseTo(_.time.days(-1), -1)
-  })
-
-  test('since', async () => {
-    let today = DateUtil.now()
-    let tomorrow = DateUtil.add(_.time.days(1), today)
-    let yesterday = DateUtil.minus(_.time.days(1), today)
-    expect(DateUtil.since(tomorrow)).toBeCloseTo(_.time.days(-1), -1)
-    expect(DateUtil.since(today)).toBeCloseTo(0, -1)
-    expect(DateUtil.since(yesterday)).toBeCloseTo(_.time.days(1), -1)
+    expect(TimeUtil.elapsed(yesterday, tomorrow)).toEqual(_.time.days(2))
+    expect(TimeUtil.elapsed(today, tomorrow)).toEqual(_.time.days(1))
+    expect(TimeUtil.elapsed(today, today)).toEqual(0)
+    expect(TimeUtil.elapsed(tomorrow, today)).toEqual(_.time.days(-1))
+    expect(TimeUtil.elapsed(tomorrow, yesterday)).toEqual(_.time.days(-2))
   })
 
   test('before', async () => {

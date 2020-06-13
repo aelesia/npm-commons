@@ -13,6 +13,28 @@ export class TimeUtil {
   static ONE_DAY = 86400000
   static ONE_YEAR = 31557600000
 
+  /**
+   * Returns the number of milliseconds to go from date1 until date2
+   */
+  static until(date: Date): number {
+    let now = new Date().getTime()
+    return date.getTime() - now
+  }
+
+  /**
+   * The number of milliseconds that has elapsed from date1 since date2
+   */
+  static since(date: Date): number {
+    return -this.until(date)
+  }
+
+  /**
+   * Returns the number of milliseconds from date2 to date1
+   */
+  static elapsed(date: Date, date2: Date): number {
+    return date2.getTime() - date.getTime()
+  }
+
   static secs(seconds: number): number {
     return seconds * this.ONE_SECOND
   }
