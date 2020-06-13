@@ -82,9 +82,19 @@ describe('DateUtil', () => {
     expect(DateUtil.isAfter(date, DateUtil.now())).toBeTruthy()
   })
 
-  test('has passed', async () => {
-    expect(DateUtil.hasPassed(DateUtil.parse(1576598796000))).toBeTruthy()
-    expect(DateUtil.hasPassed(DateUtil.parse(1576598796))).toBeTruthy()
-    expect(DateUtil.hasPassed(DateUtil.parse(9976598796))).not.toBeTruthy()
+  test('isPast', async () => {
+    let today = new Date()
+    let tomorrow = DateUtil.add(_.time.days(1), today)
+    let yesterday = DateUtil.minus(_.time.days(1), today)
+    expect(DateUtil.isPast(yesterday)).toBeTruthy()
+    expect(DateUtil.isPast(tomorrow)).toBeFalsy()
+  })
+
+  test('isFuture', async () => {
+    let today = new Date()
+    let tomorrow = DateUtil.add(_.time.days(1), today)
+    let yesterday = DateUtil.minus(_.time.days(1), today)
+    expect(DateUtil.isFuture(tomorrow)).toBeTruthy()
+    expect(DateUtil.isFuture(yesterday)).toBeFalsy()
   })
 })

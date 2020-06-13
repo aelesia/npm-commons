@@ -1,4 +1,8 @@
-export async function loop(func: () => any, func_catch: (e: Error) => void, delay?: number): Promise<void> {
+export async function loop(
+  func: () => any,
+  func_catch: (e: Error) => void,
+  delay?: number
+): Promise<void> {
   try {
     await func()
   } catch (e) {

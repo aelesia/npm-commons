@@ -41,7 +41,6 @@ export class DateUtil {
     return Math.trunc(date.getTime() / 1000)
   }
 
-
   /**
    * Returns the number of milliseconds to go from date1 until date2
    */
@@ -83,8 +82,12 @@ export class DateUtil {
     return !this.isBefore(date, date2)
   }
 
-  static hasPassed(date: Date): boolean {
+  static isPast(date: Date): boolean {
     return this.isBefore(date, new Date())
+  }
+
+  static isFuture(date: Date): boolean {
+    return !this.isPast(date)
   }
 
   static _f(date: Date, format: string): string {

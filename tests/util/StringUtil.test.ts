@@ -36,9 +36,9 @@ describe('StringUtil', () => {
   })
 
   test('replace_all', () => {
-    expect(
-      _.str.replaceAll('the quick brown fox jumps over the lazy wolf', 'the', '那个')
-    ).toEqual('那个 quick brown fox jumps over 那个 lazy wolf')
+    expect(_.str.replaceAll('the quick brown fox jumps over the lazy wolf', 'the', '那个')).toEqual(
+      '那个 quick brown fox jumps over 那个 lazy wolf'
+    )
     expect(_.str.replaceAll('the quick brown fox jumps over the lazy wolf', ' ', '.')).toEqual(
       'the.quick.brown.fox.jumps.over.the.lazy.wolf'
     )

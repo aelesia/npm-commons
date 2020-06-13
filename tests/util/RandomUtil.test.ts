@@ -18,7 +18,7 @@ describe('RandomUtil', () => {
     let resultTrue = 0
     for (let i = 0; i < attempts; i++) {
       if (_.rand.maybe()) {
-        resultTrue = ++ resultTrue
+        resultTrue = ++resultTrue
       }
     }
     expect(resultTrue).toBeGreaterThan(49000)

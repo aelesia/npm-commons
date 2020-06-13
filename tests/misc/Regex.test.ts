@@ -1,4 +1,4 @@
-import { _ } from "../../index";
+import { _ } from '../../index'
 
 describe('Regex', () => {
   // describe('RubyISOString', () => {

@@ -1,4 +1,3 @@
-import { DateUtil } from '../../src/collections/util/DateUtil'
 import { _ } from '../../index'
 
 describe('TimeUtil', () => {
