@@ -6,7 +6,7 @@ export class ArrayUtil {
   }
 
   // Checks if an array is empty
-  static is_empty<T>(arr: Array<T>): boolean {
+  static isEmpty<T>(arr: Array<T>): boolean {
     return arr.length === 0
   }
 

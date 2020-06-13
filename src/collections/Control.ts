@@ -20,6 +20,10 @@ export function rethrow(e1: Error, e2: Error): void {
   throw e1
 }
 
-export function throw_error(msg: string): never {
-  throw Error(msg)
+export function Throw(error: Error, error2?: Error): never {
+  if (error2) {
+    error.stack = error.stack + '\n' + error2.stack
+    throw error
+  }
+  throw error
 }
