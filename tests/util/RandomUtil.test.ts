@@ -7,7 +7,6 @@ describe('RandomUtil', () => {
       let num = _.rand.num(0, 9)
       results[num] = results[num] + 1
     }
-    console.log(results)
     for (let i = 0; i < 10; i++) {
       expect(results[i]).toBeGreaterThan(9000)
       expect(results[i]).toBeLessThan(11000)
