@@ -57,7 +57,7 @@ describe('StringUtil', () => {
     })
   })
 
-  test('_i - to integer', () => {
+  test('to_num', () => {
     expect(_.str._num('1')).toEqual(1)
     expect(_.str._num('-1')).toEqual(-1)
     expect(_.str._num('1.1')).toEqual(1.1)
