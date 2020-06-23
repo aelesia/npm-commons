@@ -1,9 +1,9 @@
 export type Duration = {
-  years?: number
-  days?: number
-  hours?: number
-  mins?: number
-  secs?: number
+  years: number
+  days: number
+  hours: number
+  mins: number
+  secs: number
 }
 
 export class TimeUtil {
