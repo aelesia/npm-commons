@@ -1,3 +1,5 @@
+import { _ } from '../../../index'
+
 export class ArrayUtil {
   // Finds the maximum number in an array
   static max(arr: number[]): number {
@@ -17,11 +19,17 @@ export class ArrayUtil {
 
   // Returns the first item in an array
   static first<T>(arr: Array<T>): T {
+    if (ArrayUtil.isEmpty(arr)) {
+      throw Error('Array is empty')
+    }
     return arr[0]
   }
 
   // Returns the last item in an array
   static last<T>(arr: Array<T>): T {
+    if (ArrayUtil.isEmpty(arr)) {
+      throw Error('Array is empty')
+    }
     return arr[arr.length - 1]
   }
 }

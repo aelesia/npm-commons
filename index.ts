@@ -5,7 +5,8 @@ import { RandomUtil } from './src/collections/util/RandomUtil'
 import { TimeUtil } from './src/collections/util/TimeUtil'
 import { Format } from './src/collections/Format'
 import { Regex } from './src/collections/Regex'
-import { loop, sleep, rethrow, Throw } from './src/collections/Control'
+import { loop, sleep, Throw, env } from './src/general/Control'
+import * as Err from './src/error/Error'
 
 // Collections
 export const _ = {
@@ -15,12 +16,7 @@ export const _ = {
   rand: RandomUtil,
   time: TimeUtil,
   format: Format,
-  regex: Regex,
-
-  loop: loop,
-  sleep: sleep,
-  rethrow: rethrow,
-  throw: Throw
+  regex: Regex
 }
 
 // Dummy
@@ -28,4 +24,5 @@ export { FakerFactory } from './src/dummy/FakerFactory'
 export { Patch } from './src/dummy/Patch'
 
 // Error
-export * from './src/error/Error'
+export { Err }
+export { loop, sleep, Throw, env }

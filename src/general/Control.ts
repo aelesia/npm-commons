@@ -19,15 +19,18 @@ export async function sleep(ms: number): Promise<void> {
   })
 }
 
-export function rethrow(e1: Error, e2: Error): void {
-  e1.stack = e1.stack + '\n' + e2.stack
-  throw e1
-}
-
 export function Throw(error: Error, error2?: Error): never {
   if (error2) {
     error.stack = error.stack + '\n' + error2.stack
     throw error
   }
   throw error
+}
+
+export function env(env: string): string {
+  const envvar = process.env[env]
+  if (envvar == null || envvar === '') {
+    console.warn(`[Config.${env}] Not set in .env`)
+  }
+  return envvar as string
 }

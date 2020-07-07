@@ -6,9 +6,19 @@ describe('ArrayUtil', () => {
     expect(_.arr.first(arr)).toEqual('a')
   })
 
+  test('first on empty array', async () => {
+    let arr: any = []
+    expect(() => _.arr.first(arr)).toThrowError()
+  })
+
   test('last', async () => {
     let arr = ['a', 'b', 'c']
     expect(_.arr.last(arr)).toEqual('c')
+  })
+
+  test('last on empty array', async () => {
+    let arr: any = []
+    expect(() => _.arr.last(arr)).toThrowError()
   })
 
   test('is_not_empty', async () => {
