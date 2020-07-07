@@ -3,7 +3,7 @@ import { DateUtil } from '../../src/collections/util/DateUtil'
 import { TimeUtil } from '../../src/collections/util/TimeUtil'
 
 describe('TimeUtil', () => {
-  test('until', async () => {
+  test('until', () => {
     let today = DateUtil.now()
     let tomorrow = DateUtil.add(_.time.days(1), today)
     let yesterday = DateUtil.minus(_.time.days(1), today)
@@ -12,7 +12,7 @@ describe('TimeUtil', () => {
     expect(TimeUtil.until(yesterday)).toBeCloseTo(_.time.days(-1), -1)
   })
 
-  test('since', async () => {
+  test('since', () => {
     let today = DateUtil.now()
     let tomorrow = DateUtil.add(_.time.days(1), today)
     let yesterday = DateUtil.minus(_.time.days(1), today)
@@ -21,36 +21,36 @@ describe('TimeUtil', () => {
     expect(TimeUtil.since(yesterday)).toBeCloseTo(_.time.days(1), -1)
   })
 
-  test('seconds', async () => {
+  test('seconds', () => {
     expect(_.time.secs(1)).toEqual(1000)
   })
-  test('minutes', async () => {
+  test('minutes', () => {
     expect(_.time.mins(1) + _.time.secs(1)).toEqual(61000)
   })
-  test('hours', async () => {
+  test('hours', () => {
     expect(_.time.hours(1) + _.time.mins(1) + _.time.secs(1)).toEqual(3661000)
   })
-  test('days', async () => {
+  test('days', () => {
     expect(_.time.days(1) + _.time.hours(1) + _.time.mins(1) + _.time.secs(1)).toEqual(90061000)
   })
 
   describe('from', () => {
-    test('seconds', async () => {
+    test('seconds', () => {
       expect(_.time.parse({ years: 0, days: 0, hours: 0, mins: 0, secs: 1 })).toEqual(1000)
     })
-    test('minutes', async () => {
+    test('minutes', () => {
       expect(_.time.parse({ years: 0, days: 0, hours: 0, mins: 1, secs: 1 })).toEqual(61000)
     })
-    test('hours', async () => {
+    test('hours', () => {
       expect(_.time.parse({ years: 0, days: 0, hours: 1, mins: 1, secs: 1 })).toEqual(3661000)
     })
-    test('days', async () => {
+    test('days', () => {
       expect(_.time.parse({ years: 0, days: 1, hours: 1, mins: 1, secs: 1 })).toEqual(90061000)
     })
   })
 
   describe('format', () => {
-    test('minutes', async () => {
+    test('minutes', () => {
       expect(_.time._duration(86400000 + 3600000 + 60000 + 1000)).toEqual({
         years: 0,
         days: 1,

@@ -1,27 +1,29 @@
 import * as AWS from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/lib/dynamodb/document_client'
-import { Database } from './Database'
+import { NoSQLDatabase } from './NoSQLDatabase'
+import { NotImplementedErr } from '../../error/Error'
 
-export class AwsDynamodb<T extends { id: string }> extends Database<T> {
+export class AwsDynamodb<T extends { id: string }> implements NoSQLDatabase<T> {
   ddb: DocumentClient
+  table: string
 
   constructor(region: string, table: string) {
-    super(table)
     AWS.config.update({ region })
     this.ddb = new AWS.DynamoDB.DocumentClient()
+    this.table = table
   }
 
-  async select(key: string): Promise<T> {
+  async select(id: string): Promise<T> {
     const params = {
       TableName: this.table,
-      Key: { id: key }
+      Key: { id }
     }
     return new Promise((resolve, reject) => {
       this.ddb.get(params, (err: any, data: any) => {
         if (err) {
           reject(err)
         } else if (!data || !data.Item) {
-          reject(new Error(`No items retrieved from: ${this.table} : {id:${key}}`))
+          reject(new Error(`No items retrieved from: ${this.table} : {id:${id}}`))
         } else {
           resolve(data.Item as T)
         }
@@ -30,20 +32,17 @@ export class AwsDynamodb<T extends { id: string }> extends Database<T> {
   }
 
   // FIXME: Sanitize keys with empty/null/undefined values
-  async insert(key: string, value: Omit<T, 'id'>): Promise<T> {
-    const id = { id: key }
-    const new_data = { ...id, ...value } as T
-
+  async insert(data: T): Promise<T> {
     const params = {
       TableName: this.table,
-      Item: new_data
+      Item: data
     }
     return new Promise((resolve, reject) => {
       this.ddb.put(params, (err: any, _data: any) => {
         if (err) {
           reject(err)
         } else {
-          resolve(new_data)
+          resolve(data)
         }
       })
     })
@@ -64,18 +63,18 @@ export class AwsDynamodb<T extends { id: string }> extends Database<T> {
     })
   }
 
-  async update(key: string, value: Partial<T>): Promise<T> {
-    const current_data: T = await this.select(key)
-    const new_data = { ...current_data, ...value }
+  async update(data: { id: string } & Partial<T>): Promise<T> {
+    const current_data: T = await this.select(data.id)
+    const new_data = { ...current_data, ...data }
 
-    await this.insert(key, new_data)
+    await this.insert(new_data)
     return new_data
   }
 
-  async delete(key: string): Promise<void> {
-    // console.log({ TableName: this.table, Key: { id: key } })
+  async delete(id: string): Promise<void> {
+    // console.log({ TableName: this.table, Key: { id: id } })
     return new Promise((resolve, reject) => {
-      this.ddb.delete({ TableName: this.table, Key: { id: key } }, (err: any, _data: any) => {
+      this.ddb.delete({ TableName: this.table, Key: { id } }, (err: any, _data: any) => {
         if (err) {
           reject(err)
         } else {
@@ -83,5 +82,9 @@ export class AwsDynamodb<T extends { id: string }> extends Database<T> {
         }
       })
     })
+  }
+
+  async deleteAll(): Promise<void> {
+    throw new NotImplementedErr('AwsDynamodb.deleteAll() has not yet been implemented')
   }
 }
