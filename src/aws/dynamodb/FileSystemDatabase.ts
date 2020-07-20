@@ -1,5 +1,6 @@
 import { NoSQLDatabase } from './NoSQLDatabase'
 import * as fs from 'fs'
+import { Regex } from '../../collections/Regex'
 
 class File<T> {
   path: string
@@ -16,7 +17,12 @@ class File<T> {
 
   read(): Record<string, T> {
     const file = fs.readFileSync(this.path)
-    return JSON.parse(file.toString())
+    return JSON.parse(file.toString(), (key: any, value: any) => {
+      if (typeof value == 'string' && Regex.is.isoDate(value)) {
+        return new Date(value)
+      }
+      return value
+    })
   }
 
   write(object: Record<string, T>): void {

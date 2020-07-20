@@ -11,7 +11,8 @@ const DataFactory = new FakerFactory(
       boolean: _.rand.maybe(),
       string: Faker.random.word(),
       number: _.rand.num(0, 10),
-      object: { firstName: Faker.name.firstName(), lastName: Faker.name.lastName() }
+      object: { firstName: Faker.name.firstName(), lastName: Faker.name.lastName() },
+      date: Faker.date.recent()
     }
   }
 )
@@ -25,6 +26,7 @@ type Data = {
     firstName: string
     lastName: string
   }
+  date: Date
 }
 
 describe('FileSystemDatabase', () => {
@@ -71,7 +73,8 @@ describe('FileSystemDatabase', () => {
       boolean: false,
       number: 0,
       object: { firstName: 'Mandy', lastName: 'Tan' },
-      string: 'first'
+      string: 'first',
+      date: new Date()
     })
 
     await DB.update({
@@ -91,6 +94,7 @@ describe('FileSystemDatabase', () => {
 
   describe('Delete', () => {
     beforeAll(async () => {
+      await DB.deleteAll()
       await DB.insert(DataFactory.new({ id: 'one' }))
       await DB.insert(DataFactory.new({ id: 'two' }))
       await DB.insert(DataFactory.fixture('three', { id: 'three' }))
@@ -131,6 +135,20 @@ describe('FileSystemDatabase', () => {
     test('delete 3rd object, no items remaining', async () => {
       await DB.delete('three')
       expect((await DB.scan()).length).toEqual(0)
+    })
+  })
+
+  describe('Date Parsing', () => {
+    beforeAll(async () => {
+      await DB.deleteAll()
+    })
+    test('should parse ISOString as date', async () => {
+      const data = DataFactory.new({ id: 'one' })
+      await DB.insert(data)
+      const result = await DB.select('one')
+      expect(data).toEqual(result)
+      expect(result.date).toBeInstanceOf(Date)
+      expect(data.date).toStrictEqual(result.date)
     })
   })
 })

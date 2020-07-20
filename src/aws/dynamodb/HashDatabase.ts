@@ -19,7 +19,6 @@ export class HashDatabase<T extends { id: string }> implements NoSQLDatabase<T> 
     return Object.keys(this.db).map(id => this.db[id])
   }
 
-  // TODO: Handle table / key doesn't exist
   async select(id: string): Promise<T> {
     let value = this.db[id]
     if (value) {
