@@ -67,6 +67,7 @@ describe('FileSystemDatabase', () => {
 
   test('Update', async () => {
     await DB.deleteAll()
+    const date = new Date()
     await DB.insert({
       id: 'one',
       array: [],
@@ -74,7 +75,7 @@ describe('FileSystemDatabase', () => {
       number: 0,
       object: { firstName: 'Mandy', lastName: 'Tan' },
       string: 'first',
-      date: new Date()
+      date: date
     })
 
     await DB.update({
@@ -88,7 +89,8 @@ describe('FileSystemDatabase', () => {
       boolean: false,
       number: 3,
       object: { firstName: 'Mandy', lastName: 'Tan' },
-      string: 'first'
+      string: 'first',
+      date: date
     })
   })
 
