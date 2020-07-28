@@ -5,6 +5,7 @@ import { RandomUtil } from './src/collections/util/RandomUtil'
 import { TimeUtil } from './src/collections/util/TimeUtil'
 import { Format } from './src/collections/Format'
 import { Regex } from './src/collections/Regex'
+import { Misc } from './src/collections/Misc'
 import { loop, sleep, Throw, env } from './src/general/Control'
 import * as Err from './src/error/Error'
 
@@ -24,7 +25,8 @@ export {
   RandomUtil as Rand,
   TimeUtil as Time,
   Format,
-  Regex
+  Regex,
+  Misc
 }
 
 // Dummy

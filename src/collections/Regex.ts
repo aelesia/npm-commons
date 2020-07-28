@@ -1,6 +1,6 @@
 export class RegexTest {
-  static isoDate(string: string) {
-    return string.match(Regex.ISO_DATE) != null || string.match(Regex.DATE)
+  static isoDate(string: string): boolean {
+    return string.match(Regex.ISO_DATE) != null || string.match(Regex.DATE) != null
   }
 }
 

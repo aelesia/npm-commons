@@ -1,6 +1,12 @@
+import { Regex } from '../Regex'
+
 export class StringUtil {
   static isNum(str: string): boolean {
     return !(this.isBlank(str) || isNaN(str as any))
+  }
+
+  static isDate(str: string): boolean {
+    return Regex.is.isoDate(str)
   }
 
   static isBlank(str: string): boolean {

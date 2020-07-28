@@ -2,6 +2,7 @@ import * as AWS from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/lib/dynamodb/document_client'
 import { NoSQLDatabase } from './NoSQLDatabase'
 import { NotImplementedErr } from '../../error/Error'
+import { Misc } from '../../collections/Misc'
 
 export class AwsDynamodb<T extends { id: string }> implements NoSQLDatabase<T> {
   ddb: DocumentClient
@@ -25,7 +26,7 @@ export class AwsDynamodb<T extends { id: string }> implements NoSQLDatabase<T> {
         } else if (!data || !data.Item) {
           reject(new Error(`No items retrieved from: ${this.table} : {id:${id}}`))
         } else {
-          resolve(data.Item as T)
+          resolve(Misc.convertISOToDateObj<T>(data.Item))
         }
       })
     })
@@ -35,7 +36,7 @@ export class AwsDynamodb<T extends { id: string }> implements NoSQLDatabase<T> {
   async insert(data: T): Promise<T> {
     const params = {
       TableName: this.table,
-      Item: data
+      Item: Misc.convertDateObjToISO<T>(data)
     }
     return new Promise((resolve, reject) => {
       this.ddb.put(params, (err: any, _data: any) => {
@@ -56,8 +57,7 @@ export class AwsDynamodb<T extends { id: string }> implements NoSQLDatabase<T> {
         } else if (!data || !data.Items || data.Items.length <= 0) {
           resolve([])
         } else {
-          // @ts-ignore
-          resolve(data.Items)
+          resolve(Misc.convertISOToDateObj<T[]>(data.Items))
         }
       })
     })
