@@ -6,14 +6,22 @@ type APIGatewayHandler = (
   _context: Context
 ) => Promise<APIGatewayProxyResult>
 
-export function LambdaAPI(func: (data: any) => object): APIGatewayHandler {
+type Config = {
+  whitelist: string[]
+}
+export const LambdaConfig: Config = {
+  whitelist: ['*']
+}
+
+export function LambdaAPI(func: (data: any) => object, config?: Config): APIGatewayHandler {
   return async (event: APIGatewayProxyEvent, _context: Context): Promise<APIGatewayProxyResult> => {
     try {
+      const origin = event.headers['origin']
       const body = content(event)
       const result = await func(body)
       return {
         statusCode: 200,
-        // headers: { 'Access-Control-Allow-Origin': match_cors(origin, Cfg.CORS_WHITELIST) },
+        headers: { 'Access-Control-Allow-Origin': matchCORS(origin, config ?? LambdaConfig) },
         body: JSON.stringify(result)
       }
     } catch (e) {
@@ -58,6 +66,9 @@ function content(event: APIGatewayProxyEvent): object {
   }
 }
 
-function match_cors(origin: string, whitelist: string[]): string {
-  return whitelist.find(it => it === origin) ?? ' Denied'
+export function matchCORS(origin: string, config: Config): string {
+  if (config.whitelist.some(it => it === '*')) {
+    return origin
+  }
+  return config.whitelist.find(it => it === origin) ?? ' Denied'
 }
