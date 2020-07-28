@@ -1,6 +1,6 @@
 import { DateUtil } from '../../src/collections/util/DateUtil'
 import { _ } from '../../index'
-import {TimeUtil} from "../../src/collections/util/TimeUtil";
+import { TimeUtil } from '../../src/collections/util/TimeUtil'
 
 describe('DateUtil', () => {
   test('to_date', async () => {
@@ -14,6 +14,11 @@ describe('DateUtil', () => {
     expect(DateUtil.parse('1576598795')).not.toEqual(date)
     expect(DateUtil.parse()).toBeInstanceOf(Date)
     // FIXME: expect(DateUtil.to_date()).toEqual(new Date())
+  })
+
+  test('iso_string_to_date', () => {
+    let date = new Date('2020-07-20T18:01:46.000Z')
+    expect(DateUtil.parse('2020-07-20T18:01:46.000Z')).toEqual(date)
   })
 
   test('invalid to_date', async () => {

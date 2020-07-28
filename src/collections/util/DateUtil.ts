@@ -12,8 +12,14 @@ export class DateUtil {
     } else if (typeof date === 'number') {
       return this.fromTimestamp(date)
     } else if (typeof date === 'string') {
-      // FIXME: Dates could be ISO strings too
-      return this.fromTimestamp(StringUtil._num(date))
+      if (StringUtil.isNum(date)) {
+        return this.fromTimestamp(StringUtil._num(date))
+      } else {
+        const parsedDate = new Date(date)
+        if (!isNaN(parsedDate.getTime())) {
+          return parsedDate
+        }
+      }
     } else if (typeof date === 'undefined') {
       return new Date()
     }
