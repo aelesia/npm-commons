@@ -1,61 +1,22 @@
-# Testing
+# @aelesia/commons
 
-## Link module
-    npm link
+This is a collection of common functions used by me across several different projects. These utilities are generally context agnostic and can be applied to a large variety of applications.
 
-## Link module from another project
-    npm link <package.json.name>
+# README
 
-# npm
+You are free to use this package, or copy code from it. However this package is tailored specifically for my personal usage, so do not expect much support from it.
 
-## Login / Logout
+If a particular function gets popular, I may consider extracting it to a standalone package. 
 
-    npm login
-    npm logout
-    
-## Profile
-    
-    npm profile get
-    npm whoami
+# Breakdown
 
-## Publishing
-
-First Publish:
-
-    npm publish --access public
-    
-Subsequent Publishes:
-
-    npm publish
-
-Publish only specific tag:
-
-    npm publish --tag develop
-    
-## Unpublishing
-
-    npm unpublish <package-name> -f
-    npm unpublish <package-name>@<version>
-
-# Automated CI
-
-1) Get your API Token from NPM
-  - Settings > Auth Token > Create New Token > Read & Publish
-  - Copy the token
-
-2) Add this API as as secret to your GitHub repo
-  - Settings > Secrets > New secret
-  - Name: NPM_TOKEN
-  - Value: <paste the token from step 1>
-
-## Publishing by pushing to branch
-
-**npm/next**
-- Pushing to npm/next branch will publish a new package with the 'next' tag
-- Version name will be x.x.x-next.<build-no>
-
-**master**
-- Pushing to master will publish a new package with the 'latest' tag
-- Version name will be x.x.x
-
-*x.x.x is obtained from package.json.version 
+- aws
+  - All resources related to interacting with AWS
+- collections
+  - Resources related to manipulating common objects
+- dummy
+  - Resources related to testing
+- error
+  - All types of errors
+- general
+  - Things that don't belong anywhere
