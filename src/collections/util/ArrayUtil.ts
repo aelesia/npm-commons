@@ -1,5 +1,3 @@
-import { _ } from '../../../index'
-
 export class ArrayUtil {
   // Finds the maximum number in an array
   static max(arr: number[]): number {
@@ -32,4 +30,27 @@ export class ArrayUtil {
     }
     return arr[arr.length - 1]
   }
+
+  /**
+   * reduceKeyFn will return the key that you want T to be sorted to
+   * eg. groupBy(['a','ab','b','bb','bc','cc'], it => it[0])
+   *     => { a: ['a', 'ab'], b: ['b', 'bb', 'bc'], c: ['cc']}
+   * eg. groupBy([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], it => it % 2 === 0 ? 'even' : 'odd')
+   *     => { even: [0, 2, 4, 6, 8], odd: [1, 3, 5, 7, 9] }
+   * If you want to perform map or filter, please run those functions first before grouping
+   */
+  static groupBy<T>(arr: Array<T>, reduceKeyFn: (it: T) => Key): Record<Key, T[]> {
+    const map: Record<Key, T[]> = {}
+    arr.forEach(item => {
+      const key = reduceKeyFn(item)
+      const collection = map[key]
+      if (collection == null) {
+        map[key] = [item]
+      } else {
+        map[key].push(item)
+      }
+    })
+    return map
+  }
 }
+type Key = string | number
