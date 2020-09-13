@@ -8,12 +8,14 @@ import { Regex } from './src/collections/Regex'
 import { Misc } from './src/collections/Misc'
 import { loop, sleep, Throw, env } from './src/general/Control'
 import * as Err from './src/error/Error'
+import { ObjectUtil } from './src/collections/util/ObjectUtil'
 
 export const _ = {
   date: DateUtil,
   arr: ArrayUtil,
   str: StringUtil,
   rand: RandomUtil,
+  obj: ObjectUtil,
   time: TimeUtil,
   format: Format,
   regex: Regex
@@ -24,6 +26,7 @@ export {
   StringUtil as Str,
   RandomUtil as Rand,
   TimeUtil as Time,
+  ObjectUtil as Obj,
   Format,
   Regex,
   Misc
