@@ -15,9 +15,7 @@
     "lint": "eslint . --ext .ts --fix --ignore-pattern '/dist/*/*'"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.161",
-    "dayjs": "^1.8.28",
-    "lodash": "^4.17.20"
+    "dayjs": "^1.8.28"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.39",
