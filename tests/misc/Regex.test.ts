@@ -1,20 +1,6 @@
 import { _, Regex } from '../../index'
 
 describe('Regex', () => {
-  // describe('RubyISOString', () => {
-  //   test('Ruby ISO String', () => {
-  //     expect(Regex.is.isoDate('2020-02-06T00:00:00.000+08:00')).toBeTruthy()
-  //   })
-  //   test('rubbish', () => {
-  //     expect(Regex.is.isoDate('rubbish')).toBeFalsy()
-  //   })
-  //   test('Limit end of string', () => {
-  //     expect(Regex.is.isoDate('2020-02-06T00:00:00.000+08:00 ')).toBeFalsy()
-  //   })
-  //   test('Limit start of string', () => {
-  //     expect(Regex.is.isoDate(' 2020-02-06T00:00:00.000+08:00')).toBeFalsy()
-  //   })
-  // })
   describe('ISODateString', () => {
     test('ISODateString', () => {
       expect(Regex.is.isoDate('2020-02-06')).toBeTruthy()
@@ -54,6 +40,21 @@ describe('Regex', () => {
     })
     test('Limit start of string', () => {
       expect(Regex.is.isoDate(' 2020-02-06')).toBeFalsy()
+    })
+  })
+  describe('Email', () => {
+    test('is valid email', () => {
+      expect(Regex.is.email('geon@ihateregex.io')).toBeTruthy()
+      expect(Regex.is.email('test@gmail.com')).toBeTruthy()
+      expect(Regex.is.email('mail@test.org')).toBeTruthy()
+      expect(Regex.is.email('mail@testing.com')).toBeTruthy()
+    })
+    test('is invalid email', () => {
+      expect(Regex.is.email('hello@')).toBeFalsy()
+      expect(Regex.is.email('@test')).toBeFalsy()
+      expect(Regex.is.email('email@gmail')).toBeFalsy()
+      expect(Regex.is.email('theproblem@test@gmail.com')).toBeFalsy()
+      expect(Regex.is.email('mail with@space.com')).toBeFalsy()
     })
   })
 })
