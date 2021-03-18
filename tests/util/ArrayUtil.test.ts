@@ -1,4 +1,6 @@
 import { _ } from '../../index'
+import { RandomUtil } from '../../src/collections/util/RandomUtil'
+import { ArrayUtil } from '../../src/collections/util/ArrayUtil'
 
 describe('ArrayUtil', () => {
   test('first', async () => {
@@ -122,6 +124,39 @@ describe('ArrayUtil', () => {
         5: [wrap(alice), wrap(carol), wrap(aiden)],
         6: [wrap(berlin), wrap(cheryl)]
       })
+    })
+  })
+
+  describe('unique', () => {
+    test('numbers', () => {
+      const arr = [1, 2, 3, 2, 3, 1, 2, 3, 2, 1]
+      const unique = ArrayUtil.unique(arr)
+      expect(unique.length).toEqual(3)
+      expect(unique).toEqual([1, 2, 3])
+    })
+    test('strings', () => {
+      const arr = ['julie', 'jaslyn', 'julie', 'jamie', 'jamie', 'jessica']
+      const unique = ArrayUtil.unique(arr)
+      expect(unique.length).toEqual(4)
+      expect(unique).toEqual(['julie', 'jaslyn', 'jamie', 'jessica'])
+    })
+    test('objects', () => {
+      const arr: { id: number; random: string }[] = [
+        { id: 1, random: 'abc' },
+        { id: 2, random: 'def' },
+        { id: 3, random: 'ghi' },
+        { id: 4, random: 'jkl' },
+        { id: 1, random: 'mno' },
+        { id: 3, random: 'pqr' }
+      ]
+      const unique = ArrayUtil.unique(arr, it => it.id)
+      expect(unique.length).toEqual(4)
+      expect(unique).toEqual([
+        { id: 1, random: 'abc' },
+        { id: 2, random: 'def' },
+        { id: 3, random: 'ghi' },
+        { id: 4, random: 'jkl' }
+      ])
     })
   })
 })
