@@ -28,7 +28,7 @@ export function LambdaAPI(func: (data: any) => object, config?: Config): APIGate
       console.error('λ', e)
       return {
         statusCode: 500,
-        // headers: { 'Access-Control-Allow-Origin': match_cors(origin, Cfg.CORS_WHITELIST) },
+        headers: { 'Access-Control-Allow-Origin': matchCORS(origin, config ?? LambdaConfig) },
         body: JSON.stringify({
           error: { name: e.name, message: e.message }
         })
